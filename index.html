@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <title>Document</title>
+    
+</head>
+<body>
+    <nav class="nav">
+        <h1>PENUGASAN INDIVIDU ANGKATAN 2024</h1>
+        <ul>
+            <li><a href="">Github</a></li>
+            <li><a href="https://wa.me/+6285707811342">WhatsApp</a></li>
+            <li><a href="https://instagram.com/riisgip">Instagram</a></li>
+        </ul>
+    </nav>
+
+    <!-- Div untuk video background -->
+    <div class="bg-video">
+        <video class="video-bg" autoplay muted loop>
+            <source src="gift.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <h1 class="open">INFERNO 2024, NO ONE LEFT BEHIND</h1>
+    
+    <!-- Input untuk pencarian -->
+    <input type="search" id="searchInput"  placeholder="Masukkan Nama Anda" style="width: 300px; padding: 10px; margin: 20px auto; display: block;">
+
+    <div class="pamflet">
+        <img class="foto" src="mas.jpeg">
+        <h3>ALGHIFARI AMAR MUKHASYAFAH</h3>
+        <p>Saya berasal dari surabaya, berumur 19 tahun, asal sekolah dari SPNF Sidoarjo, Hobi saya bermain
+            badminton, futsal, dan bermain game, saya suka warna biru sama seperti teknik, selain itu saya juga
+            sangat menyukai awan dan malam karena menandakan ketenangan.
+        </p>
+    </div>
+    
+    <div class="bungkus">
+        <!-- Tempat di mana card akan ditambahkan secara dinamis -->
+    </div>
+    
+    <footer>
+        <img src="">
+        <div class="mid">
+            <h1>Alghifari Amar Mukhasyafah</h1>
+            <p><a href=""> WhatsApp </a></p>
+            <p><a href=""> Instagram </a></p>
+            <p><a href=""> GitHub</a></p>
+         <div class="left">
+            <img src="">
+            <button type="button">Play</button>
+        </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript untuk memasukkan data JSON dan melakukan pencarian -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let allData = [];  // Variabel untuk menyimpan data JSON
+
+            // Ambil data JSON
+            fetch('data.json')  // Pastikan jalur file JSON benar
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    allData = data;  // Simpan semua data ke variabel
+                    displayCards(allData);  // Tampilkan semua card saat halaman dimuat pertama kali
+                })
+                .catch(error => {
+                    console.error('Error fetching JSON:', error);  // Log jika ada kesalahan
+                });
+
+            // Fungsi untuk menampilkan card di halaman
+            function displayCards(data) {
+                const container = document.querySelector('.bungkus');
+                container.innerHTML = '';  // Hapus konten sebelumnya
+
+                data.forEach(item => {
+                    // Membuat elemen card baru
+                    const card = document.createElement('div');
+                    card.classList.add('card');
+
+                    // Menambahkan konten ke dalam card
+                    card.innerHTML = `
+                        <img src="${item.fotoformal}" alt="Foto Formal ${item.nama}" class="card-img">
+                        <p class="nama"><strong>Nama:</strong> ${item.nama}</p>
+                        <p class="kelompok"><strong>Kelompok:</strong> ${item.kelompok}</p>
+                        <p class="nim"><strong>NIM:</strong> ${item.nim}</p>
+                        <p class="alamat"><strong>Alamat:</strong> ${item.alamat}</p>
+                        <p class="ttl"><strong>TTL:</strong> ${item.ttl}</p>
+                        <p class="wa"><strong>WA:</strong> ${item.no}</p>
+                    `;
+
+                    container.appendChild(card);
+                });
+            }
+
+            // Event listener untuk input pencarian
+            document.getElementById('searchInput').addEventListener('input', function() {
+                const searchQuery = this.value.toLowerCase();  // Ambil input dan konversi ke huruf kecil
+                const filteredData = allData.filter(item => item.nama.toLowerCase().includes(searchQuery));  // Filter data berdasarkan nama
+                displayCards(filteredData);  // Tampilkan hasil pencarian
+            });
+        });
+    </script>
+</body>
+</html>
