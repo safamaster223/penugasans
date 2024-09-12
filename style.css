@@ -198,3 +198,62 @@ button {
 button:hover {
     background-color: aqua;
 }
+
+@media (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+    }
+
+    .nav h1 {
+        font-size: 1.5rem;
+    }
+
+    .nav ul {
+        display: none; /* Sembunyikan menu secara default */
+        position: absolute;
+        top: 60px; /* Posisi menu di bawah header */
+        background: #333;
+        width: 100%;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .nav.active ul {
+        display: flex; /* Tampilkan menu jika menu aktif */
+        flex-direction: column;
+    }
+
+    .nav li {
+        margin: 10px 0;
+    }
+
+    .open {
+        font-size: 1.5rem;
+        padding: 10px;
+    }
+
+    .pamflet {
+        width: 100%;
+        height: auto; /* Sesuaikan tinggi secara otomatis pada perangkat mobile */
+    }
+
+    .bungkus {
+        padding: 10px;
+    }
+
+    .card {
+        width: 90%;
+    }
+
+    .video-bg {
+        height: 50%; /* Mengurangi tinggi video pada perangkat kecil */
+    }
+
+    button {
+        width: 40px;
+        height: 40px;
+    }
+}
